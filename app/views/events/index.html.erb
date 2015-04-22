@@ -1,4 +1,72 @@
-<h1>Display</h1>
+<h1>Conference Event Schedule</h1>
 
-<p>events: </p>
-<%= @events.name %>, <%= @events.track %>
+<table>
+  <thead>
+    <th>Time</th>
+    <th>Track 1</th>
+    <th>Track 2</th>
+    <th>Track 3</th>
+    <th>Track 4</th>
+    <th>Track 5</th>
+  </thead>
+  <tbody>
+    
+    <% (0..50).each do |i| @day_time_exact = @day_time_reference + (i*15).minutes %>
+    
+    <tr>
+      <td><%= @day_time_exact.to_formatted_s(:short) %></td>
+      
+      <!--Track 1 -->
+      <td>
+        <% track1_event = @events.where(startTime: @day_time_reference..@day_time_exact).where(endTime: @day_time_exact..(@day_time_exact + (12*60).minutes)).where('track= 1 OR track= 0').take %>
+        <% if(@track1_event.nil?) %>
+        <% elsif %>
+        <%= @track1_event.name %>
+        <% end %>
+      </td>
+      
+      <!--Track 2 -->
+      <td>
+        <% if(@events.where(startTime: @day_time_reference..@day_time_exact).where(endTime: @day_time_exact..(@day_time_exact + (12*60).minutes)).where('track= 0 OR track= 2').take.nil?) %>
+        <% elsif %>
+        <%= @events.where(startTime: @day_time_reference..@day_time_exact).where(endTime: @day_time_exact..(@day_time_exact + (12*60).minutes)).where('track= 0 OR track= 2').take.name %>
+        <% end %>
+      </td>
+      
+      <!--Track 3 -->
+      <td>
+        <% if(@events.where(startTime: @day_time_reference..@day_time_exact).where(endTime: @day_time_exact..(@day_time_exact + (12*60).minutes)).where('track= 0 OR track= 3').take.nil?) %>
+        <% elsif %>
+        <%= @events.where(startTime: @day_time_reference..@day_time_exact).where(endTime: @day_time_exact..(@day_time_exact + (12*60).minutes)).where('track= 0 OR track= 3').take.name %>
+        <% end %>
+      </td>
+      
+      <!--Track 4 -->
+      <td>
+        <% if(@events.where(startTime: @day_time_reference..@day_time_exact).where(endTime: @day_time_exact..(@day_time_exact + (12*60).minutes)).where('track= 0 OR track= 4').take.nil?) %>
+        <% elsif %>
+        <%= @events.where(startTime: @day_time_reference..@day_time_exact).where(endTime: @day_time_exact..(@day_time_exact + (12*60).minutes)).where('track= 0 OR track= 4').take.name %>
+        <% end %>
+      </td>
+      
+      <!--Track 5 -->
+      <td>
+        <% if(@events.where(startTime: @day_time_reference..@day_time_exact).where(endTime: @day_time_exact..(@day_time_exact + (12*60).minutes)).where('track= 0 OR track= 5').take.nil?) %>
+        <% elsif %>
+        <%= @events.where(startTime: @day_time_reference..@day_time_exact).where(endTime: @day_time_exact..(@day_time_exact + (12*60).minutes)).where('track= 0 OR track= 5').take.name %>
+        <% end %>
+      </td>
+    </tr>
+    
+    <% end %>
+    
+  </tbody>
+</table>
+
+<ul>
+<% @events.each do |event| %>
+  <li>
+    <%= event.name %>, <%= event.track %>, <%= event.startTime %>, <%= event.endTime %>
+  </li>
+<% end %>
+</ul>
